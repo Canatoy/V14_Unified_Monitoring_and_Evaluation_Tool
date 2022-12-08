@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Municipality extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name'];
+
+    // municipality has many students
+    public function students(){
+        return $this->hasMany(Student::class);
+    }
+
+    // municipality has many barangay
+    public function barangay(){
+        return $this->hasMany(Barangay::class);
+    }
 }
