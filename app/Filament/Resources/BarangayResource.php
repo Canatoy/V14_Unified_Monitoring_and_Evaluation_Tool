@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\BarangayResource\Pages;
 use App\Filament\Resources\BarangayResource\RelationManagers;
+use App\Filament\Resources\BArangayResource\RelationManagers\StudentsRelationManager;
 use App\Models\Barangay;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
@@ -21,19 +22,22 @@ class BarangayResource extends Resource
 {
     protected static ?string $model = Barangay::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-home';
+    protected static ?string $navigationGroup = 'System Management'; 
+
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Card::make()
-                    ->schema([
-                        Select::make('municipality_id',)
-                            ->relationship('municipality', 'name'),
-                
-                        TextInput::make('barangay'),
-                    ])
+                ->schema([
+                    Select::make('municipality_id')
+                        ->relationship('municipality', 'name')->required(),
+                    TextInput::make('barangay')->required()
+                    ->maxLength(150)
+                ])
             ]);
     }
 
@@ -42,6 +46,7 @@ class BarangayResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('barangay')->sortable()->searchable(),
+                TextColumn::make('municipality.name')->sortable()->searchable(),
                 TextColumn::make('created_at')->dateTime()
             ])
             ->filters([
@@ -54,11 +59,12 @@ class BarangayResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
+
     
     public static function getRelations(): array
     {
         return [
-            //
+            StudentsRelationManager::class,
         ];
     }
     

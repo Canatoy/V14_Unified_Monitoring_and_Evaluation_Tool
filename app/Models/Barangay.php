@@ -10,7 +10,10 @@ class Barangay extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['municipality_id', 'barangay'];
+    protected $fillable = [
+        'municipality_id',
+        'barangay'
+    ]; //susudlan ha database
 
     // barangay belongs to municipality
     public function municipality(){

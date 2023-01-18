@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('barangays', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('barangay');
             $table->foreignId('municipality_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

@@ -17,7 +17,7 @@ class Municipality extends Model
     }
 
     // municipality has many barangay
-    public function barangay(){
+    public function barangays(){
         return $this->hasMany(Barangay::class);
     }
 }

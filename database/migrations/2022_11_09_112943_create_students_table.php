@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('entry_id');
+            $table->string('year_graduated');
             $table->foreignId('municipality_id')->constrained()->cascadeOnDelete();
             $table->foreignId('barangay_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('graduated_id')->constrained()->cascadeOnDelete();
-            $table->string('fullname');
+            $table->boolean('honors_received')->default(false)->required();
             $table->timestamps();
         });
     }

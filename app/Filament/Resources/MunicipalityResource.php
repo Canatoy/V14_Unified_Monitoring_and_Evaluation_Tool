@@ -4,10 +4,11 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MunicipalityResource\Pages;
 use App\Filament\Resources\MunicipalityResource\RelationManagers;
+use App\Filament\Resources\MunicipalityResource\RelationManagers\StudentsRelationManager;
 use App\Models\Municipality;
 use Filament\Forms;
-use Filament\Forms\Components\Card;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Card;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -20,17 +21,19 @@ class MunicipalityResource extends Resource
 {
     protected static ?string $model = Municipality::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-library';
+    protected static ?string $navigationGroup = 'System Management'; 
 
     public static function form(Form $form): Form
     {
+    
         return $form
             ->schema([
                 Card::make()
                 ->schema([
-                    TextInput::make('name')
+                    TextInput::make('name')->label('Municipality')->required()
+                    ->maxLength(150)
                 ])
-            
             ]);
     }
 
@@ -38,7 +41,7 @@ class MunicipalityResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->sortable()->searchable(),
+                TextColumn::make('name')->label('Municipality')->sortable()->searchable(),
                 TextColumn::make('created_at')->dateTime()
             ])
             ->filters([
@@ -55,7 +58,7 @@ class MunicipalityResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+           StudentsRelationManager::class,
         ];
     }
     

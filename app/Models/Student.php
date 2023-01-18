@@ -9,12 +9,19 @@ class Student extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['fullname', 'municipality_id', 'barangay_id'];
+    protected $fillable = ['name', 'entry_id', 'year_graduated', 'municipality_id', 'barangay_id', 'honors_received',];
 
-    public function municipality (){
+    protected $casts = [
+        'honors_received' => 'boolean',
+    ];
+
+
+    //students belongs to Municipality
+    public function municipality(){
         return $this->belongsTo(Municipality::class);
     }
 
+    //students belongs to Barangay
     public function barangay(){
         return $this->belongsTo(Barangay::class);
     }
