@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.0.2",
         "alperenersoy/filament-export": "^0.2.6",
+        "awcodes/filament-badgeable-column": "^1.1",
         "filament/filament": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "konnco/filament-import": "^1.4",
