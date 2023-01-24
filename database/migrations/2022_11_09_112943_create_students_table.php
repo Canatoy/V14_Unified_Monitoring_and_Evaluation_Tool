@@ -15,13 +15,22 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('entry_id');
-            $table->string('year_graduated');
-            $table->foreignId('municipality_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('barangay_id')->constrained()->cascadeOnDelete();
-            $table->boolean('honors_received')->default(false)->required();
-            $table->timestamps();
+            $table->string('name')->nullable();
+            $table->integer('entry_id')->nullable();
+            $table->string('year_graduated')->nullable();
+            $table->string('municipality')->nullable();
+            $table->string('barangay')->nullable();
+            $table->boolean('honors_received')->nullable()->default(false);
+            // if in school
+            $table->string('employment')->nullable();
+            // in not in school
+            $table->string('status')->nullable();
+            $table->string('college_course')->nullable();
+            $table->string('vocational')->nullable();
+            $table->string('others')->nullable();
+            // remarks
+            $table->string('remarks')->nullable();  
+            $table->timestamps(); 
         });
     }
 

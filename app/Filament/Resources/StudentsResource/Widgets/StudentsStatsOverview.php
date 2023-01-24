@@ -13,7 +13,6 @@ class StudentsStatsOverview extends BaseWidget
     {
         return [
             Card::make('All Students', Student::all()->count()),
-            Card::make('Municipality', Municipality::all()->count()),
         ];
     }
 }
