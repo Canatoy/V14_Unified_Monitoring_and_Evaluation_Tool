@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('vocational')->nullable();
             $table->string('others')->nullable();
             // remarks
-            $table->string('remarks')->nullable();  
+            $table->string('remarks')->nullable();   
             $table->timestamps(); 
         });
     }

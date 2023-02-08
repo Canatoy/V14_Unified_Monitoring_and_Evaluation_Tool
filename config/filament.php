@@ -6,6 +6,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Http\Middleware\MirrorConfigToSubpackages;
 use Filament\Pages;
 use Filament\Widgets;
+use FontLib\Table\Type\name;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -26,7 +27,7 @@ return [
     |
     */
 
-    'path' => env('FILAMENT_PATH', 'admin'),
+    'path' => env('FILAMENT_PATH', 'umet'),
 
     /*
     |--------------------------------------------------------------------------
@@ -73,7 +74,7 @@ return [
     |
     */
 
-    'brand' =>('Unified Monitoring and Evaluation Tool'),
+    'brand' =>config('dswd.name'),
 
     /*
     |--------------------------------------------------------------------------
@@ -185,7 +186,7 @@ return [
 
     'database_notifications' => [
         'enabled' => false,
-        'polling_interval' => '30s',
+        'polling_interval' => '5s',
     ],
 
     /*
@@ -238,12 +239,12 @@ return [
             'have_inline_labels' => false,
         ],
         'footer' => [
-            'should_show_logo' => true,
+            'should_show_logo' => false,
         ],
         'max_content_width' => null,
         'notifications' => [
             'vertical_alignment' => 'top',
-            'alignment' => 'center',
+            'alignment' => 'right',
         ],
         'sidebar' => [
             'is_collapsible_on_desktop' => true,
@@ -264,7 +265,7 @@ return [
     |
     */
 
-    'favicon' => null,
+    'favicon' => '/4ps-favicon.png',
 
     /*
     |--------------------------------------------------------------------------

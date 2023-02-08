@@ -12,14 +12,17 @@ use Filament\Resources\Table;
 use Filament\Resources\Resource;
 use BladeUI\Icons\Components\Icon;
 use Filament\Forms\Components\Card;
+use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Columns\BooleanColumn;
+use Filament\Tables\Filters\TernaryFilter;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
 use App\Filament\Resources\StudentResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -34,7 +37,7 @@ class StudentResource extends Resource
 {
     protected static ?string $model = Student::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
 
     public static function form(Form $form): Form
     {
@@ -51,18 +54,18 @@ class StudentResource extends Resource
                         
                     
 
-                        Select::make('status')
-                        ->label('Current Status')
-                        ->options([
-                            'In School - Senior High' => 'In School - Senior High',
-                            'In School - College Degree Course' => 'In School - College Degree Course',
-                            'In School - Vocational' => 'In School - Vocational',
-                            'Single Teenage Young Parent' => 'Single Teenage Young Parent',
-                            'Legally Married' => 'Legally Married',
-                            'Out of School' => 'Out of School',
-                            'Graduated' => 'Graduated',
-                            'Others (Specify)' => 'Others (Specify)',
-                        ])->nullable()->searchable(),
+                    Select::make('status')
+                    ->label('Current Status')
+                    ->options([
+                        'In School - Senior High' => 'In School - Senior High',
+                        'In School - College Degree Course' => 'In School - College Degree Course',
+                        'In School - Vocational' => 'In School - Vocational',
+                        'Single Teenage Young Parent' => 'Single Teenage Young Parent',
+                        'Legally Married' => 'Legally Married',
+                        'Out of School' => 'Out of School',
+                        'Graduated' => 'Graduated',
+                        'Others (Specify)' => 'Others (Specify)',
+                    ])->nullable()->searchable(),
 
                     Select::make('employment')
                         ->label('Details')
@@ -87,6 +90,7 @@ class StudentResource extends Resource
                     Textarea::make('others')->label('Others Please Specify')->nullable(),
                     Textarea::make('remarks')->label('Remarks')->nullable(),
                     
+                    
                 ])
 
                 
@@ -98,21 +102,55 @@ class StudentResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('entry_id')->label('Entry ID')->sortable()->searchable(),
+                TextColumn::make('entry_id')->label('Entry ID')->sortable()->searchable()->toggleable(),
                 TextColumn::make('name')->sortable()->searchable(),
-                TextColumn::make('year_graduated')->label('Year Graduated')->sortable()->searchable(),
-                TextColumn::make('barangay')->sortable()->searchable(),
-                TextColumn::make('municipality')->sortable()->searchable(),
-                IconColumn::make('honors_received')->boolean(),
-                TextColumn::make('status')->label('Current Status')->sortable()->searchable(),
-                TextColumn::make('employment')->label('Details')->sortable()->searchable(),
-                TextColumn::make('others')->label('Others Please Specify')->sortable()->searchable(),
-                TextColumn::make('remarks')->label('Remarks')->sortable()->searchable(),
+                TextColumn::make('year_graduated')->label('Year Graduated')->sortable()->searchable()->toggleable(),
+                TextColumn::make('barangay')->sortable()->searchable()->toggleable(),
+                TextColumn::make('municipality')->sortable()->searchable()->toggleable(),
+                IconColumn::make('honors_received')->boolean()->toggleable(),
+                TextColumn::make('status')->label('Current Status')->sortable()->searchable()->toggleable()->wrap(),
+                TextColumn::make('employment')->label('Details')->sortable()->searchable()->toggleable()->wrap(),
+                TextColumn::make('others')->label('Others Please Specify')->sortable()->searchable()->toggleable(),
+                TextColumn::make('remarks')->label('Remarks')->sortable()->searchable()->toggleable(),
                 
                 // TextColumn::make('created_at')->dateTime()
             ])
             ->filters([
-                //
+                TernaryFilter::make('honors_received')->trueLabel('Yes')
+                ->falseLabel('No')
+                ->placeholder('Filter by Honors received'),
+
+                SelectFilter::make('status')
+                    ->label('Current Status')
+                    ->options([
+                        'In School - Senior High' => 'In School - Senior High',
+                        'In School - College Degree Course' => 'In School - College Degree Course',
+                        'In School - Vocational' => 'In School - Vocational',
+                        'Single Teenage Young Parent' => 'Single Teenage Young Parent',
+                        'Legally Married' => 'Legally Married',
+                        'Out of School' => 'Out of School',
+                        'Graduated' => 'Graduated',
+                        'Others (Specify)' => 'Others (Specify)',
+                    ])
+                    ->placeholder('Filter by Current Status'),
+
+                SelectFilter::make('employment')
+                    ->label('Details')
+                    ->options([
+                        'Employed' => 'Employed',
+                        'Unemployed' => 'Unemployed',
+                        'with LGU scholarship' => 'with LGU scholarship',
+                        'with CHED scholarship' => 'with CHED scholarship',
+                        'with CSO scholarship' => 'with CSO scholarship',
+                        'TESDA sponsorship' => 'TESDA sponsorship',
+                        'CSO sponsorship' => 'CSO sponsorship',
+                        'Private Agencies Institution sponsorship' => 'Private Agencies Institution sponsorship',
+                        'Public School/SUC sponsorship' => 'Public School/SUC sponsorship',
+                    ])
+                    ->placeholder('Filter by Details'),
+                    
+                        
+                
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -124,7 +162,7 @@ class StudentResource extends Resource
             ])
             ->headerActions([
                 FilamentExportHeaderAction::make('export')
-                ->disableAdditionalColumns()
+                ->disableAdditionalColumns(),
             ]);
     }
     
@@ -149,5 +187,10 @@ class StudentResource extends Resource
             'create' => Pages\CreateStudent::route('/create'),
             'edit' => Pages\EditStudent::route('/{record}/edit'),
         ];
-    }    
+    }   
+    
+    protected static function getNavigationBadge(): ?string
+    {
+        return self::$model::count();
+    }
 }
