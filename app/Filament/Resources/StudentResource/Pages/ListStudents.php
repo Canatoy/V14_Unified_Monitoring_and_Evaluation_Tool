@@ -26,18 +26,30 @@ class ListStudents extends ListRecords
                     ->label('Entry ID'),
                 ImportField::make('name')
                     ->label('Name'), 
-                ImportField::make('year_graduated')
-                    ->label('Year Graduated'),
+                ImportField::make('province')
+                    ->label('Province'), 
+                ImportField::make('municipality')
+                    ->label('Municipality'),
                 ImportField::make('barangay')
                     ->label('Barangay'),
-                ImportField::make('municipality')
-                    ->label('Municipality'),                
+                ImportField::make('year_graduated')
+                    ->label('SHS Grad Year'),
+                ImportField::make('status')
+                    ->label('Current Status'),
+                ImportField::make('others')
+                    ->label('Others Please Specify'),
+                ImportField::make('employment')
+                    ->label('Details'),
                 ImportField::make('honors_received')
                     ->label('Honors_received'),
+                ImportField::make('honors_received_details')
+                    ->label('Honors Received Details'),
+                ImportField::make('Remarks')
+                    ->label('Remarks'),
                     
                 
                 
-            ], columns:2)
+            ], columns:3)
         ];
     }
 

@@ -25,6 +25,8 @@ class Student extends Model
      'vocational',
      'others',
      'remarks',
+     'province',
+     'honors_received_details',
     ];
 
     protected $casts = [

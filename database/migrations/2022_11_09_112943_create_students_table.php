@@ -18,8 +18,10 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->integer('entry_id')->nullable();
             $table->string('year_graduated')->nullable();
+            $table->string('province')->nullable();
             $table->string('municipality')->nullable();
             $table->string('barangay')->nullable();
+            $table->string('honors_received_details')->nullable();
             $table->boolean('honors_received')->nullable()->default(false);
             // if in school
             $table->string('employment')->nullable();
