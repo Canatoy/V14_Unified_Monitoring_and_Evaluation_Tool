@@ -101,7 +101,7 @@ class StudentResource extends Resource
                 ])
 
                 
-            ]);
+                        ]);
             
     }
 
@@ -110,7 +110,7 @@ class StudentResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('entry_id')->label('Entry ID')->sortable()->searchable()->toggleable(),
-                TextColumn::make('name')->sortable()->searchable(),
+                TextColumn::make('name')->sortable()->searchable()->icon('heroicon-s-user'),
                 TextColumn::make('province')->sortable()->searchable()->toggleable(),
                 TextColumn::make('municipality')->sortable()->searchable()->toggleable(),
                 TextColumn::make('barangay')->sortable()->searchable()->toggleable(),
