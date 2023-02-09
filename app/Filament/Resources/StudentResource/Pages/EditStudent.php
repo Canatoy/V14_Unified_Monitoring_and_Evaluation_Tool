@@ -6,7 +6,7 @@ use App\Filament\Resources\StudentResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditStudent extends EditRecord
+class EditStudent extends EditRecord 
 {
     protected static string $resource = StudentResource::class;
 
@@ -21,4 +21,6 @@ class EditStudent extends EditRecord
     {
         return $this->getResource()::getUrl('index');
     }
+
+    
 }

@@ -29,7 +29,7 @@ class Student extends Model
      'honors_received_details',
     ];
 
-    protected $casts = [
-        'honors_received' => 'boolean',
-    ];
+    // protected $casts = [
+    //     'honors_received' => 'boolean',
+    // ];
 }

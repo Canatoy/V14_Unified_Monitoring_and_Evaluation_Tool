@@ -19,6 +19,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Columns\BooleanColumn;
@@ -88,7 +89,10 @@ class StudentResource extends Resource
                         ])->nullable()->searchable(),
                         
 
-                    Toggle::make('honors_received')->label('With Honors Received'),
+                    Select::make('honors_received')->label('With Honors Received')->options([
+                        'Yes' => 'Yes',
+                        'No' => 'No',
+                    ]),
 
                     TextArea::make('honors_received_details')->placeholder('Fill only if there is honor received')->label('Honors Received Details')->nullable(),
 
@@ -120,7 +124,21 @@ class StudentResource extends Resource
                 TextColumn::make('employment')->label('Details')->sortable()->searchable()->toggleable()->wrap(),
 
 
-                IconColumn::make('honors_received')->boolean()->toggleable(),
+                BadgeColumn::make('honors_received')
+                ->toggleable()
+                ->color(static function ($state): string {
+                    if ($state === 'Yes' || $state === 'yes') {
+                        return 'success';
+                    }
+                    else if ($state === 'no' || $state === 'No') {
+                        return 'danger';
+                    }
+
+                        return '';
+                })
+            ,
+                
+                
                 TextColumn::make('honors_received_details')->label('Honors Received Details')->sortable()->searchable()->toggleable(),
                 TextColumn::make('remarks')->label('Remarks')->sortable()->searchable()->toggleable(),
                 

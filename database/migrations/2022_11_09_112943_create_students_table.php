@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('municipality')->nullable();
             $table->string('barangay')->nullable();
             $table->string('honors_received_details')->nullable();
-            $table->boolean('honors_received')->nullable()->default(false);
+            $table->string('honors_received')->nullable();
             // if in school
             $table->string('employment')->nullable();
             // in not in school
