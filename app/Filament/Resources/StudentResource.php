@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use BladeUI\Icons\Components\Icon;
 use Filament\Forms\Components\Card;
 use Filament\Tables\Filters\Filter;
+use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Textarea;
@@ -89,10 +90,10 @@ class StudentResource extends Resource
                         ])->nullable()->searchable(),
                         
 
-                    Select::make('honors_received')->label('With Honors Received')->options([
+                    Radio::make('honors_received')->label('With Honors Received')->options([
                         'Yes' => 'Yes',
                         'No' => 'No',
-                    ]),
+                    ])->inline(),
 
                     TextArea::make('honors_received_details')->placeholder('Fill only if there is honor received')->label('Honors Received Details')->nullable(),
 
