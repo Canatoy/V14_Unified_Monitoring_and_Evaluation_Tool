@@ -14,7 +14,7 @@ class StudentsStatsOverview extends BaseWidget
     protected function getCards(): array
     {
         return [
-            Card::make('All Students', Student::all()->count()),
+            // Card::make('All Students', Student::all()->count()),
             
             
         ];

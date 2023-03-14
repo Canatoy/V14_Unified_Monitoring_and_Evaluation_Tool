@@ -46,9 +46,6 @@ class ListStudents extends ListRecords
                     ->label('Honors Received Details'),
                 ImportField::make('Remarks')
                     ->label('Remarks'),
-                    
-                
-                
             ], columns:3)
         ];
     }

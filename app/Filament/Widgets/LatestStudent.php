@@ -33,15 +33,9 @@ class LatestStudent extends BaseWidget
         return [
             TextColumn::make('entry_id')->label('Entry ID')->sortable()->searchable()->toggleable(),
             TextColumn::make('name')->sortable()->searchable(),
-            // TextColumn::make('year_graduated')->label('Year Graduated')->sortable()->searchable()->toggleable(),
             TextColumn::make('province')->sortable()->searchable()->toggleable(),
             TextColumn::make('barangay')->sortable()->searchable()->toggleable(),
             TextColumn::make('municipality')->sortable()->searchable()->toggleable(),
-            // IconColumn::make('honors_received')->boolean()->toggleable(),
-            // TextColumn::make('status')->label('Current Status')->sortable()->searchable()->toggleable()->wrap(),
-            // TextColumn::make('employment')->label('Details')->sortable()->searchable()->toggleable()->wrap(),
-            // TextColumn::make('others')->label('Others Please Specify')->sortable()->searchable()->toggleable(),
-            // TextColumn::make('remarks')->label('Remarks')->sortable()->searchable()->toggleable(),
         ];
     }
 
